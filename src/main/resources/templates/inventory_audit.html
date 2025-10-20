@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Audit - DSS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    
+    <div class="main-content">
+        <h1>Inventory Anomaly Detection</h1>
+        
+        <div class="card p-3 mt-4">
+            <button class="btn btn-primary" onclick="detectAnomalies()">Detect Anomalies</button>
+            
+            <table class="table mt-3" id="anomaliesTable">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Anomaly Type</th>
+                        <th>Severity</th>
+                        <th>Score</th>
+                        <th>Detected At</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="anomaliesBody">
+                    <!-- Data loaded via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="/static/js/app.js"></script>
+    <script>
+        async function loadAnomalies() {
+            const anomalies = await fetchData('/inventory/anomalies');
+            const tbody = document.getElementById('anomaliesBody');
+            
+            if (anomalies && anomalies.length > 0) {
+                tbody.innerHTML = anomalies.map(anom => `
+                    <tr>
+                        <td>${anom.productId}</td>
+                        <td>${anom.productName}</td>
+                        <td>${anom.anomalyType}</td>
+                        <td><span class="badge badge-${anom.severity.toLowerCase()}">${anom.severity}</span></td>
+                        <td>${anom.anomalyScore}</td>
+                        <td>${formatDate(anom.detectedAt)}</td>
+                        <td>${anom.description}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+        
+        async function detectAnomalies() {
+            showLoading('anomaliesBody');
+            await postData('/inventory/detect', {});
+            await loadAnomalies();
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadAnomalies);
+    </script>
+</body>
+</html>
+

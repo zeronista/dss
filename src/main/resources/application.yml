@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: dss
+  
+  # MongoDB Configuration
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: dss_db
+      authentication-database: admin
+      # username: your_username
+      # password: your_password
+  
+  # MySQL Configuration (alternative - uncomment to use)
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/dss_db
+  #   username: root
+  #   password: your_password
+  #   driver-class-name: com.mysql.cj.jdbc.Driver
+  # jpa:
+  #   hibernate:
+  #     ddl-auto: update
+  #   show-sql: true
+  #   properties:
+  #     hibernate:
+  #       dialect: org.hibernate.dialect.MySQL8Dialect
+
+  # Security
+  security:
+    user:
+      name: admin
+      password: admin123
+
+  # View Resolver (Thymeleaf)
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+
+  # JSP View Resolver (alternative - uncomment to use JSP)
+  # mvc:
+  #   view:
+  #     prefix: /WEB-INF/jsp/
+  #     suffix: .jsp
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Model Service Configuration
+model-service:
+  base-url: http://localhost:8000
+  timeout: 30000
+
+# Logging
+logging:
+  level:
+    com.g5.dss: DEBUG
+    org.springframework: INFO
+    org.mongodb: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/dss-application.log
+
