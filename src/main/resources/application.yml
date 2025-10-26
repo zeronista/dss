@@ -4,9 +4,9 @@ spring:
   
   # MySQL Configuration (JPA)
   datasource:
-    url: jdbc:mysql://localhost:3306/dss_db_mysql
-    username: root
-    password: your_mysql_password
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/dss_db_mysql}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:1234}
     driver-class-name: com.mysql.cj.jdbc.Driver
   
   jpa:
@@ -18,21 +18,11 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
   
-  # MongoDB Configuration
+  # MongoDB Configuration (Atlas Cloud)
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: dss_db_mongo
-      authentication-database: admin
-      # username: your_username
-      # password: your_password
-
-  # Security
-  security:
-    user:
-      name: admin
-      password: admin123
+      uri: ${MONGODB_URI:mongodb+srv://vuthanhlam848:vuthanhlam848@cluster0.s9cdtme.mongodb.net/DSS?retryWrites=true&w=majority}
+      database: ${MONGODB_DATABASE:DSS}
 
   # View Resolver (Thymeleaf)
   thymeleaf:
