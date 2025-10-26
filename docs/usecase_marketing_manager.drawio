@@ -1,0 +1,356 @@
+<mxfile host="app.diagrams.net" modified="2025-10-26T00:00:00.000Z" agent="5.0" version="22.1.11" etag="usecase" type="device">
+  <diagram name="Marketing Manager Use Case Diagram" id="usecase-diagram">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Use Case Diagram - Marketing Manager" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="subtitle" value="DSS Application - Phân tích Marketing &amp; Bán hàng" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="65" width="600" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- System Boundary -->
+        <mxCell id="system-boundary" value="DSS System" style="swimlane;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=3;fontStyle=1;fontSize=16;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="800" height="820" as="geometry" />
+        </mxCell>
+        
+        <!-- Main Use Cases -->
+        
+        <!-- 1. Phân khúc khách hàng -->
+        <mxCell id="uc-segmentation" value="Phân khúc khách hàng&#xa;(RFM &amp; K-Means)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="80" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- 2. Market Basket Analysis -->
+        <mxCell id="uc-basket" value="Gợi ý gói sản phẩm&#xa;(Market Basket Analysis)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="230" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Segmentation -->
+        
+        <mxCell id="uc-compute-rfm" value="Tính toán chỉ số RFM&#xa;(Recency, Frequency, Monetary)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="60" y="400" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-kmeans-clustering" value="Phân cụm K-Means" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="400" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-segment-naming" value="Đặt tên phân khúc&#xa;(Champions, Loyal, At-Risk...)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="480" y="400" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-marketing-actions" value="Gợi ý hành động Marketing&#xa;cho từng phân khúc" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="60" y="520" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-segment-visualization" value="Trực quan hóa&#xa;phân khúc" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="520" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-export-segment" value="Xuất danh sách&#xa;khách hàng theo phân khúc" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="480" y="520" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Market Basket -->
+        
+        <mxCell id="uc-apriori" value="Phân tích Apriori&#xa;(tìm tập phổ biến)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="60" y="650" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-association-rules" value="Tạo luật kết hợp&#xa;(Association Rules)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="260" y="650" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-calculate-metrics" value="Tính Support, Confidence, Lift" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="460" y="650" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-product-bundles" value="Đề xuất Bundle sản phẩm" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="160" y="740" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-cross-sell" value="Gợi ý Cross-sell&#xa;cho từng khách hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="360" y="740" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-export-rules" value="Xuất danh sách&#xa;quy tắc kết hợp" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="560" y="740" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: Marketing Manager -->
+        <mxCell id="actor-marketing" value="Marketing Manager" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="380" width="80" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: System (ML Models) -->
+        <mxCell id="actor-system" value="&amp;lt;&amp;lt;system&amp;gt;&amp;gt;&#xa;ML Models&#xa;(Python Service)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=12;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="380" width="80" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Associations from Marketing Manager to Main Use Cases -->
+        
+        <mxCell id="assoc-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-marketing" target="uc-segmentation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-marketing" target="uc-basket">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Include relationships for Segmentation -->
+        
+        <mxCell id="include-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#9673a6;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-segmentation" target="uc-compute-rfm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="290" />
+              <mxPoint x="700" y="480" />
+              <mxPoint x="450" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-1-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9673a6;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#9673a6;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-segmentation" target="uc-kmeans-clustering">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="290" />
+              <mxPoint x="700" y="470" />
+              <mxPoint x="660" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-2-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9673a6;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#9673a6;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-segmentation" target="uc-segment-naming">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="290" />
+              <mxPoint x="700" y="480" />
+              <mxPoint x="870" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-3-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9673a6;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Extend relationships for Segmentation -->
+        
+        <mxCell id="extend-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#d79b00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-marketing-actions" target="uc-segmentation">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="600" />
+              <mxPoint x="450" y="360" />
+              <mxPoint x="700" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-1-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d79b00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#d79b00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-segment-visualization" target="uc-segmentation">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="660" y="600" />
+              <mxPoint x="660" y="340" />
+              <mxPoint x="700" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-2-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d79b00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#d79b00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-export-segment" target="uc-segmentation">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="870" y="600" />
+              <mxPoint x="870" y="360" />
+              <mxPoint x="700" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-3-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d79b00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include relationships for Market Basket -->
+        
+        <mxCell id="include-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#82b366;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-basket" target="uc-apriori">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="440" />
+              <mxPoint x="700" y="730" />
+              <mxPoint x="440" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-4-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#82b366;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-4">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#82b366;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-basket" target="uc-association-rules">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="440" />
+              <mxPoint x="700" y="710" />
+              <mxPoint x="640" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-5-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#82b366;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-5">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#82b366;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-basket" target="uc-calculate-metrics">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="440" />
+              <mxPoint x="700" y="730" />
+              <mxPoint x="840" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-6-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#82b366;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-6">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Extend relationships for Market Basket -->
+        
+        <mxCell id="extend-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#d79b00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-product-bundles" target="uc-basket">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="820" />
+              <mxPoint x="540" y="510" />
+              <mxPoint x="700" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-4-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d79b00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-4">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#d79b00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-cross-sell" target="uc-basket">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="740" y="820" />
+              <mxPoint x="740" y="490" />
+              <mxPoint x="700" y="490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-5-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d79b00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-5">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#d79b00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-export-rules" target="uc-basket">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="820" />
+              <mxPoint x="940" y="510" />
+              <mxPoint x="700" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-6-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d79b00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-6">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Associations from System to algorithmic use cases -->
+        
+        <mxCell id="assoc-system-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#b85450;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-kmeans-clustering">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-system-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#b85450;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-apriori">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-system-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#b85450;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-association-rules">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#999999;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="960" width="1320" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-title" value="📖 Chú giải:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="60" y="970" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-1" value="━━━ Solid Line: Association (Actor thực hiện Use Case)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1000" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-2" value="- - - &amp;lt;&amp;lt;include&amp;gt;&amp;gt;: Use Case chính bắt buộc gọi Use Case phụ" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1020" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-3" value="- - - &amp;lt;&amp;lt;extend&amp;gt;&amp;gt;: Use Case tùy chọn, mở rộng chức năng chính" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1040" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-4" value="🟡 Yellow: Use Case chính (Main Use Cases)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1000" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-5" value="🟣 Purple: Sub Use Cases - Phân khúc khách hàng" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1020" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-6" value="🟢 Green: Sub Use Cases - Market Basket Analysis" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1040" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-7" value="👤 Actor chính: Marketing Manager (người sử dụng hệ thống)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1000" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-8" value="🤖 Actor hệ thống: ML Models (Python service thực thi thuật toán)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1020" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-9" value="🎯 Hệ thống DSS cung cấp insights để hỗ trợ quyết định marketing" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1040" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
