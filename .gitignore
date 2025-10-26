@@ -74,6 +74,7 @@ ehthumbs.db
 Desktop.ini
 
 # Spring Boot
+application.yml
 application-local.yml
 application-dev.yml
 application-prod.yml

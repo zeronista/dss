@@ -3,62 +3,621 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Rules - DSS</title>
+    <title>Market Basket Analysis - DSS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        .rule-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 4px solid #4CAF50;
+        }
+        .rule-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .rule-card.high-confidence {
+            border-left-color: #FFD700;
+            background: linear-gradient(to right, #FFFBF0 0%, white 100%);
+        }
+        .rule-card.medium-confidence {
+            border-left-color: #4A90E2;
+        }
+        .rule-card.low-confidence {
+            border-left-color: #95A5A6;
+        }
+        
+        .product-tag {
+            display: inline-block;
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 3px;
+            font-size: 0.9rem;
+        }
+        
+        .product-tag.antecedent {
+            background: #E3F2FD;
+            color: #1976D2;
+        }
+        
+        .product-tag.consequent {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+        
+        .metric-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin: 0 3px;
+        }
+        
+        .metric-badge.support {
+            background: #E8EAF6;
+            color: #3F51B5;
+        }
+        
+        .metric-badge.confidence {
+            background: #F3E5F5;
+            color: #9C27B0;
+        }
+        
+        .metric-badge.lift {
+            background: #E0F2F1;
+            color: #00897B;
+        }
+        
+        .settings-card {
+            background: #F8F9FA;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .bundle-suggestion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .bundle-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .filter-pill {
+            display: inline-block;
+            background: #E8F5E9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-pill:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .filter-pill.active {
+            background: #2196F3;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div th:replace="fragments/sidebar :: sidebar"></div>
     
     <div class="main-content">
-        <h1>Marketing Association Rules</h1>
-        
-        <div class="card p-3 mt-4">
-            <button class="btn btn-primary" onclick="generateRules()">Generate New Rules</button>
-            
-            <table class="table mt-3" id="rulesTable">
-                <thead>
-                    <tr>
-                        <th>Antecedent</th>
-                        <th>Consequent</th>
-                        <th>Support</th>
-                        <th>Confidence</th>
-                        <th>Lift</th>
-                    </tr>
-                </thead>
-                <tbody id="rulesBody">
-                    <!-- Data loaded via JavaScript -->
-                </tbody>
-            </table>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-basket3-fill"></i> Market Basket Analysis</h1>
+            <div>
+                <button class="btn btn-success" onclick="generateRules()">
+                    <i class="bi bi-magic"></i> Tạo luật mới
+                </button>
+                <button class="btn btn-primary" onclick="refreshAnalysis()">
+                    <i class="bi bi-arrow-clockwise"></i> Làm mới
+                </button>
+            </div>
         </div>
+        
+        <!-- Top Bundle Suggestion -->
+        <div id="topBundleCard"></div>
+        
+        <!-- Statistics Overview -->
+        <div class="row mb-4" id="statsOverview">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="totalRules">0</h3>
+                    <p class="text-muted">Tổng số Luật</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="highConfRules">0</h3>
+                    <p class="text-muted">Luật Confidence cao (&gt;60%)</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="avgLift">0</h3>
+                    <p class="text-muted">Lift trung bình</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="productPairs">0</h3>
+                    <p class="text-muted">Cặp sản phẩm</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Panel -->
+        <div class="settings-card">
+            <h5><i class="bi bi-sliders"></i> Tùy chỉnh Phân tích</h5>
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <label class="form-label">Min Support</label>
+                    <input type="number" class="form-control" id="minSupport" value="0.01" step="0.005" min="0.001" max="0.1">
+                    <small class="text-muted">Tỷ lệ tối thiểu xuất hiện</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Min Confidence (%)</label>
+                    <input type="number" class="form-control" id="minConfidence" value="30" min="10" max="100">
+                    <small class="text-muted">Độ tin cậy tối thiểu</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Min Lift</label>
+                    <input type="number" class="form-control" id="minLift" value="1.0" step="0.1" min="0.5" max="5.0">
+                    <small class="text-muted">Mức liên kết tối thiểu</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Số luật hiển thị</label>
+                    <input type="number" class="form-control" id="maxRules" value="20" min="5" max="100">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label class="form-label">Lọc theo phân khúc khách hàng</label>
+                    <select class="form-select" id="segmentFilter">
+                        <option value="all">Tất cả phân khúc</option>
+                        <option value="Champions">Champions</option>
+                        <option value="Loyal">Loyal</option>
+                        <option value="Regulars">Regulars</option>
+                        <option value="At-Risk">At-Risk</option>
+                        <option value="Hibernating">Hibernating</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Khoảng thời gian</label>
+                    <select class="form-select" id="dateRange">
+                        <option value="30">30 ngày gần nhất</option>
+                        <option value="90" selected>90 ngày gần nhất</option>
+                        <option value="180">6 tháng gần nhất</option>
+                        <option value="365">1 năm gần nhất</option>
+                        <option value="all">Toàn bộ dữ liệu</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary" onclick="applyFilters()">
+                    <i class="bi bi-funnel-fill"></i> Áp dụng bộ lọc
+                </button>
+                <button class="btn btn-outline-secondary" onclick="resetFilters()">
+                    <i class="bi bi-x-circle"></i> Đặt lại
+                </button>
+            </div>
+        </div>
+        
+        <!-- Quick Filters -->
+        <div class="mb-3">
+            <strong>Lọc nhanh:</strong>
+            <span class="filter-pill" onclick="quickFilter('high-conf')">
+                <i class="bi bi-star-fill"></i> Confidence cao
+            </span>
+            <span class="filter-pill" onclick="quickFilter('high-lift')">
+                <i class="bi bi-graph-up-arrow"></i> Lift cao
+            </span>
+            <span class="filter-pill" onclick="quickFilter('bundle-ready')">
+                <i class="bi bi-gift-fill"></i> Sẵn sàng bundle
+            </span>
+        </div>
+        
+        <!-- Association Rules List -->
+        <h3 class="mt-4 mb-3"><i class="bi bi-diagram-3-fill"></i> Danh sách Luật kết hợp</h3>
+        <div id="rulesContainer">
+            <!-- Dynamically loaded -->
+        </div>
+        
+        <!-- Detailed Table View -->
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-table"></i> Bảng chi tiết</h5>
+                <button class="btn btn-sm btn-outline-primary" onclick="toggleTableView()">
+                    <i class="bi bi-arrows-angle-expand"></i> Mở rộng
+                </button>
+            </div>
+            <div class="card-body" id="tableViewContainer" style="display:none;">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Sản phẩm A</th>
+                                <th><i class="bi bi-arrow-right"></i></th>
+                                <th>Sản phẩm B</th>
+                                <th>Support</th>
+                                <th>Confidence</th>
+                                <th>Lift</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rulesTableBody">
+                            <!-- Dynamically loaded -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Export Options -->
+        <div class="mt-4">
+            <button class="btn btn-outline-primary" onclick="exportRules('csv')">
+                <i class="bi bi-download"></i> Xuất CSV
+            </button>
+            <button class="btn btn-outline-success" onclick="exportRules('excel')">
+                <i class="bi bi-file-earmark-excel"></i> Xuất Excel
+            </button>
+            <button class="btn btn-outline-info" onclick="exportBundleSuggestions()">
+                <i class="bi bi-gift"></i> Xuất gợi ý Bundle
+            </button>
+        </div>
+        
+        <!-- Help Modal -->
+        <div class="modal fade" id="helpModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-question-circle"></i> Hướng dẫn sử dụng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Các chỉ số:</h6>
+                        <ul>
+                            <li><strong>Support:</strong> Tỷ lệ giao dịch có cả sản phẩm A và B. Càng cao = càng phổ biến.</li>
+                            <li><strong>Confidence (%):</strong> Xác suất mua B khi đã mua A. >60% = rất mạnh, 40-60% = khá tốt.</li>
+                            <li><strong>Lift:</strong> Mức độ liên kết so với ngẫu nhiên. >2.0 = rất mạnh, >1.5 = tốt, >1.0 = có liên kết.</li>
+                        </ul>
+                        <h6>Cách áp dụng:</h6>
+                        <ul>
+                            <li>Tạo combo/bundle từ cặp có Confidence >60% và Lift >1.5</li>
+                            <li>Hiển thị "Mua kèm" trên website/app</li>
+                            <li>Thiết kế khuyến mãi đi kèm cho các cặp sản phẩm liên quan</li>
+                            <li>Sắp xếp sản phẩm gần nhau trên kệ (retail)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn btn-outline-secondary position-fixed bottom-0 end-0 m-4" data-bs-toggle="modal" data-bs-target="#helpModal">
+            <i class="bi bi-question-circle"></i> Trợ giúp
+        </button>
     </div>
     
     <script src="/static/js/app.js"></script>
     <script>
+        let rulesData = [];
+        let filteredRules = [];
+        
         async function loadRules() {
-            const rules = await fetchData('/marketing/rules');
-            const tbody = document.getElementById('rulesBody');
-            
-            if (rules && rules.length > 0) {
-                tbody.innerHTML = rules.map(rule => `
-                    <tr>
-                        <td>${rule.antecedent}</td>
-                        <td>${rule.consequent}</td>
-                        <td>${rule.support}</td>
-                        <td>${rule.confidence}</td>
-                        <td>${rule.lift}</td>
-                    </tr>
-                `).join('');
+            try {
+                showLoading();
+                const params = {
+                    minSupport: document.getElementById('minSupport').value,
+                    minConfidence: document.getElementById('minConfidence').value / 100,
+                    minLift: document.getElementById('minLift').value,
+                    maxRules: document.getElementById('maxRules').value,
+                    segment: document.getElementById('segmentFilter').value,
+                    dateRange: document.getElementById('dateRange').value
+                };
+                
+                const query = new URLSearchParams(params).toString();
+                const data = await fetchData(`/api/marketing/basket-rules?${query}`);
+                
+                if (data) {
+                    rulesData = data.rules || [];
+                    filteredRules = rulesData;
+                    updateStatistics(data.statistics);
+                    renderTopBundle(data.topRule);
+                    renderRules(filteredRules);
+                    renderRulesTable(filteredRules);
+                }
+            } catch (error) {
+                console.error('Error loading rules:', error);
+                alert('Lỗi khi tải luật kết hợp. Vui lòng thử lại.');
+            } finally {
+                hideLoading();
             }
         }
         
-        async function generateRules() {
-            showLoading('rulesBody');
-            await postData('/marketing/rules/generate', {});
-            await loadRules();
+        function updateStatistics(stats) {
+            document.getElementById('totalRules').textContent = stats.totalRules || 0;
+            document.getElementById('highConfRules').textContent = stats.highConfidenceRules || 0;
+            document.getElementById('avgLift').textContent = (stats.avgLift || 0).toFixed(2);
+            document.getElementById('productPairs').textContent = stats.uniquePairs || 0;
         }
         
-        document.addEventListener('DOMContentLoaded', loadRules);
+        function renderTopBundle(rule) {
+            const container = document.getElementById('topBundleCard');
+            if (!rule) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="bundle-suggestion">
+                    <div class="text-center bundle-icon">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <h3 class="text-center mb-3">🌟 Bundle đề xuất hàng đầu</h3>
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <h5>Khi khách mua:</h5>
+                            <div class="p-3 bg-white bg-opacity-25 rounded">
+                                ${rule.antecedent.map(p => `<div class="mb-1"><strong>${p}</strong></div>`).join('')}
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-arrow-right" style="font-size: 3rem;"></i>
+                        </div>
+                        <div class="col-md-5 text-center">
+                            <h5>Gợi ý bán kèm:</h5>
+                            <div class="p-3 bg-white bg-opacity-25 rounded">
+                                ${rule.consequent.map(p => `<div class="mb-1"><strong>${p}</strong></div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <span class="badge bg-light text-dark me-2" style="font-size: 1rem;">
+                            Confidence: <strong>${(rule.confidence * 100).toFixed(1)}%</strong>
+                        </span>
+                        <span class="badge bg-light text-dark me-2" style="font-size: 1rem;">
+                            Lift: <strong>${rule.lift.toFixed(2)}</strong>
+                        </span>
+                        <span class="badge bg-light text-dark" style="font-size: 1rem;">
+                            Support: <strong>${(rule.support * 100).toFixed(2)}%</strong>
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderRules(rules) {
+            const container = document.getElementById('rulesContainer');
+            
+            if (!rules || rules.length === 0) {
+                container.innerHTML = '<div class="alert alert-warning"><i class="bi bi-exclamation-triangle"></i> Không tìm thấy luật kết hợp với ngưỡng đã chọn. Hãy giảm Min Support hoặc Min Confidence.</div>';
+                return;
+            }
+            
+            container.innerHTML = rules.map((rule, idx) => {
+                const confidence = rule.confidence * 100;
+                let cardClass = 'rule-card';
+                let confidenceBadge = '';
+                
+                if (confidence >= 60) {
+                    cardClass += ' high-confidence';
+                    confidenceBadge = '<i class="bi bi-star-fill text-warning"></i>';
+                } else if (confidence >= 40) {
+                    cardClass += ' medium-confidence';
+                }
+                
+                return `
+                    <div class="${cardClass}">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-2">
+                                    ${confidenceBadge}
+                                    Luật #${idx + 1}
+                                    ${rule.lift > 2.0 ? '<span class="badge bg-danger ms-2">HOT</span>' : ''}
+                                </h6>
+                                <div class="mb-3">
+                                    <div class="mb-2">
+                                        <strong><i class="bi bi-cart-fill"></i> Khách mua:</strong><br>
+                                        ${rule.antecedent.map(p => `<span class="product-tag antecedent">${p}</span>`).join('')}
+                                    </div>
+                                    <div class="text-center my-2">
+                                        <i class="bi bi-arrow-down-circle-fill" style="font-size: 1.5rem; color: #4CAF50;"></i>
+                                    </div>
+                                    <div>
+                                        <strong><i class="bi bi-gift-fill"></i> Thường mua thêm:</strong><br>
+                                        ${rule.consequent.map(p => `<span class="product-tag consequent">${p}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="metric-badge support">Support: ${(rule.support * 100).toFixed(2)}%</span>
+                                    <span class="metric-badge confidence">Confidence: ${confidence.toFixed(1)}%</span>
+                                    <span class="metric-badge lift">Lift: ${rule.lift.toFixed(2)}</span>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <button class="btn btn-sm btn-outline-primary mb-2" onclick="createBundle(${idx})">
+                                    <i class="bi bi-gift"></i> Tạo Bundle
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="applyCrossSell(${idx})">
+                                    <i class="bi bi-arrow-left-right"></i> Cross-sell
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function renderRulesTable(rules) {
+            const tbody = document.getElementById('rulesTableBody');
+            tbody.innerHTML = rules.map((rule, idx) => `
+                <tr>
+                    <td>${idx + 1}</td>
+                    <td>${rule.antecedent.join(', ')}</td>
+                    <td><i class="bi bi-arrow-right"></i></td>
+                    <td>${rule.consequent.join(', ')}</td>
+                    <td>${(rule.support * 100).toFixed(2)}%</td>
+                    <td>${(rule.confidence * 100).toFixed(1)}%</td>
+                    <td>${rule.lift.toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="createBundle(${idx})">
+                            <i class="bi bi-gift"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        async function generateRules() {
+            if (!confirm('Tạo luật mới sẽ phân tích lại toàn bộ dữ liệu. Tiếp tục?')) return;
+            
+            try {
+                showLoading();
+                await postData('/api/marketing/basket-rules/generate', {});
+                await loadRules();
+                alert('Tạo luật thành công!');
+            } catch (error) {
+                alert('Lỗi khi tạo luật: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        function applyFilters() {
+            loadRules();
+        }
+        
+        function resetFilters() {
+            document.getElementById('minSupport').value = 0.01;
+            document.getElementById('minConfidence').value = 30;
+            document.getElementById('minLift').value = 1.0;
+            document.getElementById('maxRules').value = 20;
+            document.getElementById('segmentFilter').value = 'all';
+            document.getElementById('dateRange').value = '90';
+            loadRules();
+        }
+        
+        function quickFilter(type) {
+            // Update active pill
+            document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            switch(type) {
+                case 'high-conf':
+                    filteredRules = rulesData.filter(r => r.confidence >= 0.6);
+                    break;
+                case 'high-lift':
+                    filteredRules = rulesData.filter(r => r.lift >= 2.0);
+                    break;
+                case 'bundle-ready':
+                    filteredRules = rulesData.filter(r => r.confidence >= 0.6 && r.lift >= 1.5);
+                    break;
+                default:
+                    filteredRules = rulesData;
+            }
+            renderRules(filteredRules);
+            renderRulesTable(filteredRules);
+        }
+        
+        function toggleTableView() {
+            const container = document.getElementById('tableViewContainer');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function createBundle(idx) {
+            const rule = filteredRules[idx];
+            if (!rule) return;
+            
+            const bundleName = prompt('Tên Bundle:', 'Combo ' + rule.antecedent[0]);
+            if (!bundleName) return;
+            
+            // Call API to create bundle
+            postData('/api/marketing/bundles/create', {
+                name: bundleName,
+                products: [...rule.antecedent, ...rule.consequent],
+                rule: rule
+            }).then(() => {
+                alert('Tạo bundle thành công!');
+            });
+        }
+        
+        function applyCrossSell(idx) {
+            const rule = filteredRules[idx];
+            if (!rule) return;
+            
+            // Call API to apply cross-sell
+            postData('/api/marketing/cross-sell/apply', {
+                antecedent: rule.antecedent,
+                consequent: rule.consequent,
+                confidence: rule.confidence
+            }).then(() => {
+                alert('Áp dụng cross-sell thành công!');
+            });
+        }
+        
+        function exportRules(format) {
+            window.location.href = `/api/marketing/basket-rules/export?format=${format}`;
+        }
+        
+        function exportBundleSuggestions() {
+            const highConfRules = rulesData.filter(r => r.confidence >= 0.6 && r.lift >= 1.5);
+            const csv = 'Bundle Name,Products,Confidence,Lift\n' + 
+                highConfRules.map((r, idx) => 
+                    `"Bundle ${idx+1}","${[...r.antecedent, ...r.consequent].join(', ')}",${(r.confidence*100).toFixed(1)}%,${r.lift.toFixed(2)}`
+                ).join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bundle_suggestions.csv';
+            a.click();
+        }
+        
+        function refreshAnalysis() {
+            loadRules();
+        }
+        
+        function showLoading() {
+            document.body.style.cursor = 'wait';
+        }
+        
+        function hideLoading() {
+            document.body.style.cursor = 'default';
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRules();
+        });
     </script>
 </body>
 </html>
