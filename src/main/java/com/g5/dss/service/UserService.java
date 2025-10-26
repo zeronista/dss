@@ -1,7 +1,7 @@
 package com.g5.dss.service;
 
-import com.g5.dss.domain.User;
-import com.g5.dss.repository.UserRepository;
+import com.g5.dss.domain.jpa.User;
+import com.g5.dss.repository.jpa.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

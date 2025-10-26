@@ -2,29 +2,31 @@ spring:
   application:
     name: dss
   
+  # MySQL Configuration (JPA)
+  datasource:
+    url: jdbc:mysql://localhost:3306/dss_db_mysql
+    username: root
+    password: your_mysql_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  
   # MongoDB Configuration
   data:
     mongodb:
       host: localhost
       port: 27017
-      database: dss_db
+      database: dss_db_mongo
       authentication-database: admin
       # username: your_username
       # password: your_password
-  
-  # MySQL Configuration (alternative - uncomment to use)
-  # datasource:
-  #   url: jdbc:mysql://localhost:3306/dss_db
-  #   username: root
-  #   password: your_password
-  #   driver-class-name: com.mysql.cj.jdbc.Driver
-  # jpa:
-  #   hibernate:
-  #     ddl-auto: update
-  #   show-sql: true
-  #   properties:
-  #     hibernate:
-  #       dialect: org.hibernate.dialect.MySQL8Dialect
 
   # Security
   security:
