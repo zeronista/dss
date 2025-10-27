@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL Retail Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .badge-mysql {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            background: #5a6268;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .stat-card h3 {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .chart-card h2 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e8ed;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .rank {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        
+        .text-right { text-align: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 MySQL Retail Analytics</h1>
+            <p style="color: #6c757d; margin-top: 10px;">
+                Advanced analytics and insights from MySQL database 
+                <span class="badge-mysql">MySQL</span>
+            </p>
+            <a th:href="@{/mysql/retail}" class="back-button">← Back to MySQL Data</a>
+        </div>
+        
+        <!-- Summary Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📝 Total Records</h3>
+                <div class="stat-value" th:text="${totalRecords ?: '0'}">541911</div>
+            </div>
+            <div class="stat-card">
+                <h3>👥 Unique Customers</h3>
+                <div class="stat-value" th:text="${uniqueCustomers ?: '0'}">4372</div>
+            </div>
+            <div class="stat-card">
+                <h3>📦 Unique Products</h3>
+                <div class="stat-value" th:text="${uniqueProducts ?: '0'}">4070</div>
+            </div>
+            <div class="stat-card">
+                <h3>🌍 Countries</h3>
+                <div class="stat-value" th:text="${countryCount ?: '0'}">38</div>
+            </div>
+        </div>
+        
+        <!-- Charts -->
+        <div class="chart-grid">
+            <!-- Top Countries Chart -->
+            <div class="chart-card">
+                <h2>🌍 Top 10 Countries by Sales</h2>
+                <canvas id="countriesChart"></canvas>
+            </div>
+            
+            <!-- Top Products Chart -->
+            <div class="chart-card">
+                <h2>📦 Top 10 Products by Quantity</h2>
+                <canvas id="productsChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Top Customers Table -->
+        <div class="table-container">
+            <h2 style="color: #2c3e50; font-size: 22px; margin-bottom: 10px;">🏆 Top 20 Customers</h2>
+            <table th:if="${topCustomers != null && !topCustomers.isEmpty()}">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Customer ID</th>
+                        <th class="text-right">Total Orders</th>
+                        <th class="text-right">Total Quantity</th>
+                        <th class="text-right">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer, iterStat : ${topCustomers}">
+                        <td><span class="rank" th:text="${iterStat.count}">1</span></td>
+                        <td th:text="${customer.customerId}">14646</td>
+                        <td class="text-right" th:text="${customer.totalOrders}">196</td>
+                        <td class="text-right" th:text="${customer.totalQuantity}">196506</td>
+                        <td class="text-right" style="font-weight: bold; color: #28a745;" 
+                            th:text="'$' + ${#numbers.formatDecimal(customer.totalAmount, 1, 2)}">$280206.02</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Top Products Table -->
+        <div class="table-container">
+            <h2 style="color: #2c3e50; font-size: 22px; margin-bottom: 10px;">⭐ Top 20 Products</h2>
+            <table th:if="${topProducts != null && !topProducts.isEmpty()}">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Stock Code</th>
+                        <th>Description</th>
+                        <th class="text-right">Total Quantity</th>
+                        <th class="text-right">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product, iterStat : ${topProducts}">
+                        <td><span class="rank" th:text="${iterStat.count}">1</span></td>
+                        <td th:text="${product.stockCode}">85123A</td>
+                        <td th:text="${product.description}">WHITE HANGING HEART T-LIGHT HOLDER</td>
+                        <td class="text-right" th:text="${product.totalQuantity}">100603</td>
+                        <td class="text-right" style="font-weight: bold; color: #28a745;" 
+                            th:text="'$' + ${#numbers.formatDecimal(product.totalAmount, 1, 2)}">$100603.50</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script th:inline="javascript">
+        // Countries Chart
+        const countriesData = /*[[${topCountries}]]*/ [];
+        if (countriesData && countriesData.length > 0) {
+            const countriesCtx = document.getElementById('countriesChart').getContext('2d');
+            new Chart(countriesCtx, {
+                type: 'bar',
+                data: {
+                    labels: countriesData.map(c => c.country),
+                    datasets: [{
+                        label: 'Total Amount ($)',
+                        data: countriesData.map(c => c.totalAmount),
+                        backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Products Chart
+        const productsData = /*[[${topProducts}]]*/ [];
+        if (productsData && productsData.length > 0) {
+            const productsCtx = document.getElementById('productsChart').getContext('2d');
+            const top10Products = productsData.slice(0, 10);
+            new Chart(productsCtx, {
+                type: 'bar',
+                data: {
+                    labels: top10Products.map(p => p.stockCode + ' - ' + 
+                        (p.description.length > 25 ? p.description.substring(0, 25) + '...' : p.description)),
+                    datasets: [{
+                        label: 'Total Quantity',
+                        data: top10Products.map(p => p.totalQuantity),
+                        backgroundColor: 'rgba(118, 75, 162, 0.7)',
+                        borderColor: 'rgba(118, 75, 162, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // This makes it horizontal
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

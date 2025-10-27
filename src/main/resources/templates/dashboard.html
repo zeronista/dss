@@ -5,72 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - DSS Application</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .stats-card h3 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .stats-card p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .card h5 {
+            color: #2c3e50;
+            font-weight: 600;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+    </style>
 </head>
 <body>
     <div th:replace="fragments/sidebar :: sidebar"></div>
     
     <div class="main-content">
-        <h1>Dashboard</h1>
+        <h1 style="color: #2c3e50; margin-bottom: 30px;">📊 Dashboard</h1>
         
         <div class="row mt-4">
             <div class="col-md-3">
                 <div class="stats-card">
-                    <h3 id="totalCustomers">0</h3>
-                    <p>Total Customers</p>
+                    <h3 th:text="${uniqueCustomers != null ? uniqueCustomers : 0}">0</h3>
+                    <p>👥 Unique Customers</p>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="stats-card">
-                    <h3 id="totalOrders">0</h3>
-                    <p>Total Orders</p>
+                <div class="stats-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <h3 th:text="${totalRecords != null ? totalRecords : 0}">0</h3>
+                    <p>📝 Total Orders</p>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="stats-card">
+                <div class="stats-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                     <h3 id="totalRevenue">$0</h3>
-                    <p>Total Revenue</p>
+                    <p>💰 Total Revenue</p>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="stats-card">
-                    <h3 id="activeProducts">0</h3>
-                    <p>Active Products</p>
+                <div class="stats-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <h3 th:text="${activeProducts != null ? activeProducts : 0}">0</h3>
+                    <p>📦 Active Products</p>
                 </div>
             </div>
         </div>
         
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="card p-3">
-                    <h5>Sales Trend</h5>
+                <div class="card p-4">
+                    <h5>🌍 Top Countries by Sales</h5>
                     <div class="chart-container">
                         <canvas id="salesChart"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card p-3">
-                    <h5>Category Distribution</h5>
+                <div class="card p-4">
+                    <h5>📦 Top Products by Quantity</h5>
                     <div class="chart-container">
                         <canvas id="categoryChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card p-4">
+                    <h5>🔗 Quick Links</h5>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="/mysql/retail" class="btn btn-primary">📊 View MySQL Data</a>
+                        <a href="/mysql/retail/analytics" class="btn btn-success">📈 MySQL Analytics</a>
+                        <a href="/retail" class="btn btn-info">📚 View MongoDB Data</a>
+                        <a href="/retail/analytics" class="btn btn-warning">📊 MongoDB Analytics</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
-    <script src="/static/js/app.js"></script>
+    <script src="/js/app.js"></script>
     <script>
         // Load dashboard statistics
         async function loadDashboard() {
-            const stats = await fetchData('/report/dashboard-stats');
-            if (stats) {
-                document.getElementById('totalCustomers').textContent = stats.totalCustomers || 0;
-                document.getElementById('totalOrders').textContent = stats.totalOrders || 0;
-                document.getElementById('totalRevenue').textContent = formatCurrency(stats.totalRevenue || 0);
-                document.getElementById('activeProducts').textContent = stats.activeProducts || 0;
+            try {
+                const response = await fetch('/api/report/dashboard-stats');
+                const stats = await response.json();
+                
+                if (stats) {
+                    document.getElementById('totalRevenue').textContent = 
+                        '$' + (stats.totalRevenue || 0).toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        });
+                }
+                
+                // Load sales chart
+                loadSalesChart();
+                
+                // Load products chart
+                loadProductsChart();
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+        
+        // Load sales chart
+        async function loadSalesChart() {
+            try {
+                const response = await fetch('/api/report/chart-data?type=sales');
+                const data = await response.json();
+                
+                const ctx = document.getElementById('salesChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels || [],
+                        datasets: [{
+                            label: 'Total Revenue ($)',
+                            data: data.values || [],
+                            backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                            borderColor: 'rgba(102, 126, 234, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value.toLocaleString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading sales chart:', error);
+            }
+        }
+        
+        // Load products chart
+        async function loadProductsChart() {
+            try {
+                const response = await fetch('/api/report/chart-data?type=products');
+                const data = await response.json();
+                
+                console.log('Products chart data:', data); // Debug log
+                
+                const ctx = document.getElementById('categoryChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels || [],
+                        datasets: [{
+                            label: 'Total Quantity',
+                            data: data.values || [],
+                            backgroundColor: 'rgba(118, 75, 162, 0.7)',
+                            borderColor: 'rgba(118, 75, 162, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y', // This makes it horizontal
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { beginAtZero: true }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading products chart:', error);
             }
         }
         

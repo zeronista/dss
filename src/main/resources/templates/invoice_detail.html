@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Invoice Detail - ' + ${invoiceNo}">Invoice Detail</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .back-button:hover {
+            background: #5a6268;
+        }
+        
+        .invoice-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .invoice-header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .invoice-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .info-box label {
+            display: block;
+            color: #6c757d;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .info-box span {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        
+        thead {
+            background: #667eea;
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e8ed;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .total-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .total-row h3 {
+            font-size: 24px;
+        }
+        
+        .total-row p {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        .amount {
+            font-weight: 600;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a th:href="@{/retail}" class="back-button">← Back to List</a>
+        
+        <div class="invoice-header">
+            <h1>📄 Invoice Detail</h1>
+            <p style="color: #6c757d;">Invoice Number: <strong th:text="${invoiceNo}">536365</strong></p>
+        </div>
+        
+        <!-- Invoice Info -->
+        <div class="invoice-info" th:if="${items != null && !items.isEmpty()}">
+            <div class="info-box">
+                <label>Customer ID</label>
+                <span th:text="${items[0].customerId != null ? items[0].customerId : 'N/A'}">17850</span>
+            </div>
+            <div class="info-box">
+                <label>Country</label>
+                <span th:text="${items[0].country}">United Kingdom</span>
+            </div>
+            <div class="info-box">
+                <label>Invoice Date</label>
+                <span th:text="${items[0].invoiceDate}">2010-12-01 08:26:00</span>
+            </div>
+        </div>
+        
+        <!-- Items Table -->
+        <table th:if="${items != null && !items.isEmpty()}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Stock Code</th>
+                    <th>Description</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item, iterStat : ${items}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${item.stockCode}">85123A</td>
+                    <td th:text="${item.description}">WHITE HANGING HEART T-LIGHT HOLDER</td>
+                    <td class="text-right" th:text="${item.quantity}">6</td>
+                    <td class="text-right" th:text="'$' + ${#numbers.formatDecimal(item.unitPrice, 1, 2)}">$2.55</td>
+                    <td class="text-right amount" th:text="'$' + ${#numbers.formatDecimal(item.totalAmount, 1, 2)}">$15.30</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Total Section -->
+        <div class="total-section" th:if="${items != null && !items.isEmpty()}">
+            <div class="total-row">
+                <h3>Total Items:</h3>
+                <p th:text="${itemCount}">8</p>
+            </div>
+            <div class="total-row">
+                <h3>Grand Total:</h3>
+                <p th:text="'$' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">$139.12</p>
+            </div>
+        </div>
+        
+        <!-- No Data -->
+        <div th:if="${items == null || items.isEmpty()}" style="text-align: center; padding: 40px; color: #6c757d;">
+            <h3>📭 Invoice not found</h3>
+        </div>
+    </div>
+</body>
+</html>

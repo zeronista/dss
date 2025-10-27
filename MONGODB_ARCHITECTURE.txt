@@ -1,0 +1,104 @@
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MONGODB DATA FLOW                            │
+└─────────────────────────────────────────────────────────────────┘
+
+┌────────────────┐
+│   MongoDB      │
+│   Atlas        │
+│                │
+│  Collection:   │
+│     DSS        │
+│  (542K docs)   │
+└────────┬───────┘
+         │
+         │ Spring Data MongoDB
+         │
+         ▼
+┌────────────────────────────────────────┐
+│  OnlineRetailDocument.java             │
+│  @Document(collection = "DSS")         │
+│                                        │
+│  Fields:                               │
+│  - InvoiceNo                           │
+│  - StockCode                           │
+│  - Description                         │
+│  - Quantity                            │
+│  - InvoiceDate                         │
+│  - UnitPrice                           │
+│  - CustomerID                          │
+│  - Country                             │
+└────────┬───────────────────────────────┘
+         │
+         │
+         ▼
+┌────────────────────────────────────────┐
+│  OnlineRetailRepository.java           │
+│  extends MongoRepository               │
+│                                        │
+│  Methods:                              │
+│  - findByInvoiceNo()                   │
+│  - findByCustomerId()                  │
+│  - findByCountry()                     │
+│  - searchByKeyword()                   │
+│  - findAll() with Pageable             │
+└────────┬───────────────────────────────┘
+         │
+         │
+         ▼
+┌────────────────────────────────────────┐
+│  OnlineRetailService.java              │
+│                                        │
+│  Business Logic:                       │
+│  - getAllData(page, size)              │
+│  - searchData(keyword)                 │
+│  - getByInvoiceNo()                    │
+│  - getByCustomerId()                   │
+│  - getTotalCount()                     │
+│  - Map Document → DTO                  │
+└────────┬───────────────────────────────┘
+         │
+         │
+    ┌────┴────┐
+    │         │
+    ▼         ▼
+┌──────────┐  ┌─────────────────────┐
+│ REST API │  │   WEB CONTROLLER    │
+└──────────┘  └─────────────────────┘
+    │              │
+    │              │
+    ▼              ▼
+┌──────────┐  ┌─────────────────────┐
+│   JSON   │  │   HTML TEMPLATES    │
+│ Response │  │                     │
+│          │  │  - retail_data.html │
+│  {       │  │  - invoice_detail   │
+│   data,  │  │                     │
+│   page,  │  │  Features:          │
+│   total  │  │  - Pagination       │
+│  }       │  │  - Search           │
+└──────────┘  │  - Statistics       │
+              │  - Responsive       │
+              └─────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                       API ENDPOINTS                              │
+├─────────────────────────────────────────────────────────────────┤
+│  GET /api/retail                    → All data (paginated)      │
+│  GET /api/retail/search             → Search by keyword         │
+│  GET /api/retail/invoice/{id}       → Get invoice items         │
+│  GET /api/retail/customer/{id}      → Get customer orders       │
+│  GET /api/retail/country/{name}     → Get by country            │
+│  GET /api/retail/product/{code}     → Get product sales         │
+│  GET /api/retail/stats              → Get statistics            │
+│  GET /api/retail/countries          → List all countries        │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                       WEB PAGES                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  GET /retail                        → Data listing page         │
+│  GET /retail?search=keyword         → Search results            │
+│  GET /retail/invoice?invoiceNo=xxx  → Invoice detail page       │
+└─────────────────────────────────────────────────────────────────┘
+```
