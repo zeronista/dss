@@ -46,6 +46,25 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Logout button styling */
+.sidebar form button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    transition: background-color 0.3s;
+    display: block;
+}
+
+.sidebar form button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .main-content {
     margin-left: 250px;
     padding: 20px;

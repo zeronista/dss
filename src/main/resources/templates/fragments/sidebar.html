@@ -11,7 +11,9 @@
             <a href="/inventory/audit"><i class="bi bi-box-seam"></i> Inventory Audit</a>
             <a href="/staff/cross-sell"><i class="bi bi-cart-plus"></i> Staff Cross-sell</a>
             <hr style="border-color: rgba(255,255,255,0.2);">
-            <a href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">Logout</button>
+            </form>
         </nav>
     </div>
 </body>
