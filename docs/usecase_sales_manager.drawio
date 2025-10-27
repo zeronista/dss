@@ -1,0 +1,547 @@
+<mxfile host="app.diagrams.net" modified="2025-10-27T00:00:00.000Z" agent="5.0" version="22.1.11" etag="usecase" type="device">
+  <diagram name="Sales Manager Use Case Diagram" id="usecase-diagram">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Use Case Diagram - Sales Manager" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="subtitle" value="DSS Application - Cross-sell &amp; Next-Best-Offer Propensity" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="65" width="600" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- System Boundary -->
+        <mxCell id="system-boundary" value="DSS System - Sales &amp; Recommendation Module" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF6F00;strokeWidth=3;fontStyle=1;fontSize=16;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="800" height="920" as="geometry" />
+        </mxCell>
+        
+        <!-- Main Use Cases -->
+        
+        <!-- 1. Generate Cross-sell Recommendations -->
+        <mxCell id="uc-cross-sell" value="Tạo gợi ý Cross-sell&#xa;(Generate Cross-sell Recommendations)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="80" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- 2. Identify Next-Best-Offer -->
+        <mxCell id="uc-next-best-offer" value="Xác định Next-Best-Offer&#xa;(Identify Next-Best-Offer)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="230" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- 3. Manage Propensity Scores -->
+        <mxCell id="uc-propensity-scores" value="Quản lý điểm xu hướng mua&#xa;(Manage Propensity Scores)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="380" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Cross-sell Recommendations -->
+        
+        <mxCell id="uc-analyze-purchase-history" value="Phân tích lịch sử&#xa;mua hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="40" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-apply-association-rules" value="Áp dụng quy tắc&#xa;kết hợp (Association Rules)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="220" y="560" width="170" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-calculate-confidence" value="Tính điểm tin cậy&#xa;(Confidence Score)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="410" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-rank-products" value="Xếp hạng sản phẩm&#xa;gợi ý" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="590" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-personalize-offers" value="Cá nhân hóa&#xa;gợi ý theo khách hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="40" y="660" width="170" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-filter-by-segment" value="Lọc theo phân khúc&#xa;khách hàng (RFM)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="230" y="660" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-display-recommendations" value="Hiển thị danh sách&#xa;sản phẩm gợi ý" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="410" y="660" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Next-Best-Offer -->
+        
+        <mxCell id="uc-analyze-customer-context" value="Phân tích bối cảnh&#xa;khách hàng (context)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="40" y="760" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-evaluate-timing" value="Đánh giá thời điểm&#xa;phù hợp (Timing)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="220" y="760" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-predict-acceptance" value="Dự đoán khả năng&#xa;chấp nhận (Propensity)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="400" y="760" width="170" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-optimize-offer" value="Tối ưu hóa gợi ý&#xa;theo mục tiêu kinh doanh" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="590" y="760" width="170" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-generate-nbo-report" value="Tạo báo cáo&#xa;Next-Best-Offer" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="590" y="660" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Propensity Scores -->
+        
+        <mxCell id="uc-train-propensity-model" value="Huấn luyện mô hình&#xa;dự đoán xu hướng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8BBD0;strokeColor=#C2185B;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="130" y="840" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-score-customers" value="Chấm điểm&#xa;khách hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8BBD0;strokeColor=#C2185B;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="320" y="840" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-update-scores" value="Cập nhật điểm&#xa;định kỳ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8BBD0;strokeColor=#C2185B;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="490" y="840" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: Sales Manager -->
+        <mxCell id="actor-sales" value="Sales Manager" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFE0B2;strokeColor=#FF6F00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="380" width="80" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: Sales Staff -->
+        <mxCell id="actor-staff" value="Sales Staff" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#C8E6C9;strokeColor=#388E3C;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="600" width="70" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: System (ML Models) -->
+        <mxCell id="actor-system" value="&amp;lt;&amp;lt;system&amp;gt;&amp;gt;&#xa;ML Models&#xa;(Python Service)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFCDD2;strokeColor=#C62828;strokeWidth=2;fontSize=12;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="420" width="80" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: Customer -->
+        <mxCell id="actor-customer" value="Customer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#E1BEE7;strokeColor=#8E24AA;strokeWidth=2;fontSize=12;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="850" width="70" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Associations from Sales Manager to Main Use Cases -->
+        
+        <mxCell id="assoc-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-sales" target="uc-cross-sell">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-sales" target="uc-next-best-offer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-sales" target="uc-propensity-scores">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Associations from Sales Staff to Cross-sell -->
+        
+        <mxCell id="assoc-staff-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=1;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#388E3C;" edge="1" parent="1" source="actor-staff" target="uc-cross-sell">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="642" />
+              <mxPoint x="250" y="270" />
+              <mxPoint x="560" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-staff-1-label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#388E3C;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-staff-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include relationships for Cross-sell -->
+        
+        <mxCell id="include-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-cross-sell" target="uc-analyze-purchase-history">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="640" />
+              <mxPoint x="420" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-1-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="15" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-cross-sell" target="uc-apply-association-rules">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="630" />
+              <mxPoint x="605" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-2-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-cross-sell" target="uc-calculate-confidence">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="640" />
+              <mxPoint x="790" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-3-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-cross-sell" target="uc-rank-products">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="630" />
+              <mxPoint x="970" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-4-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-4">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-15" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Extend relationships for Cross-sell -->
+        
+        <mxCell id="extend-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF6F00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-personalize-offers" target="uc-cross-sell">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="740" />
+              <mxPoint x="425" y="350" />
+              <mxPoint x="700" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-1-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF6F00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF6F00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-filter-by-segment" target="uc-cross-sell">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="740" />
+              <mxPoint x="610" y="330" />
+              <mxPoint x="700" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-2-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF6F00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF6F00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-display-recommendations" target="uc-cross-sell">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="740" />
+              <mxPoint x="790" y="350" />
+              <mxPoint x="700" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-3-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF6F00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include relationships for Next-Best-Offer -->
+        
+        <mxCell id="include-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-next-best-offer" target="uc-analyze-customer-context">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="820" />
+              <mxPoint x="420" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-5-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-5">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="15" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-next-best-offer" target="uc-evaluate-timing">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="810" />
+              <mxPoint x="600" y="810" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-6-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-6">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-next-best-offer" target="uc-predict-acceptance">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="820" />
+              <mxPoint x="785" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-7-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-7">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-next-best-offer" target="uc-optimize-offer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="810" />
+              <mxPoint x="975" y="810" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-8-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-8">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-15" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Extend relationship for Next-Best-Offer -->
+        
+        <mxCell id="extend-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF6F00;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-generate-nbo-report" target="uc-next-best-offer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="970" y="740" />
+              <mxPoint x="970" y="500" />
+              <mxPoint x="700" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-4-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF6F00;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-4">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include relationships for Propensity Scores -->
+        
+        <mxCell id="include-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#C2185B;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-propensity-scores" target="uc-train-propensity-model">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="580" />
+              <mxPoint x="700" y="900" />
+              <mxPoint x="510" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-9-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#C2185B;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-9">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#C2185B;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-propensity-scores" target="uc-score-customers">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="580" />
+              <mxPoint x="700" y="890" />
+              <mxPoint x="695" y="890" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-10-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#C2185B;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-10">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#C2185B;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-propensity-scores" target="uc-update-scores">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="580" />
+              <mxPoint x="700" y="900" />
+              <mxPoint x="865" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-11-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#C2185B;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-11">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dependency: Propensity Scores used by Next-Best-Offer -->
+        
+        <mxCell id="dep-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;strokeColor=#9C27B0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-predict-acceptance" target="uc-propensity-scores">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="915" />
+              <mxPoint x="1080" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep-1-label" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9C27B0;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="dep-1">
+          <mxGeometry x="0.3" y="2" relative="1" as="geometry">
+            <mxPoint x="10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dependency: Cross-sell uses Association Rules from Marketing -->
+        
+        <mxCell id="dep-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;strokeColor=#9C27B0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-apply-association-rules" target="uc-cross-sell">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="715" />
+              <mxPoint x="1150" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep-2-label" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9C27B0;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="dep-2">
+          <mxGeometry x="0.3" y="2" relative="1" as="geometry">
+            <mxPoint x="10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Associations from ML System to algorithmic use cases -->
+        
+        <mxCell id="assoc-system-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#C62828;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-apply-association-rules">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="640" />
+              <mxPoint x="1150" y="715" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-system-1-label" value="executes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#C62828;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-system-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc-system-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#C62828;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-train-propensity-model">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="660" />
+              <mxPoint x="1150" y="995" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-system-2-label" value="executes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#C62828;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-system-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc-system-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#C62828;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-predict-acceptance">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="680" />
+              <mxPoint x="1150" y="915" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-system-3-label" value="executes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#C62828;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-system-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Association from Customer (indirect) -->
+        
+        <mxCell id="assoc-customer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#8E24AA;dashed=1;" edge="1" parent="1" source="actor-customer" target="uc-analyze-purchase-history">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="892" />
+              <mxPoint x="270" y="715" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-customer-label" value="provides data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8E24AA;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-customer">
+          <mxGeometry x="0.3" y="2" relative="1" as="geometry">
+            <mxPoint x="10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#999999;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1080" width="1320" height="160" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-title" value="📖 Chú giải (Legend):" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1090" width="150" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-1" value="━━━ Solid Line: Association (Actor thực hiện Use Case)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1125" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-2" value="- - - &amp;lt;&amp;lt;include&amp;gt;&amp;gt;: Use Case chính bắt buộc gọi Use Case phụ" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1145" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-3" value="- - - &amp;lt;&amp;lt;extend&amp;gt;&amp;gt;: Use Case tùy chọn, mở rộng chức năng chính" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1165" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-4" value="- - - &amp;lt;&amp;lt;uses&amp;gt;&amp;gt;: Use Case sử dụng kết quả của Use Case khác" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1185" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-5" value="🟠 Orange: Use Case chính (Main Use Cases)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1125" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-6" value="🟢 Green: Sub Use Cases - Cross-sell Recommendations" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1145" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-7" value="🔵 Blue: Sub Use Cases - Next-Best-Offer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1165" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-8" value="🌸 Pink: Sub Use Cases - Propensity Scores Management" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1185" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-9" value="👤 Actor: Sales Manager (quản lý bán hàng, chiến lược)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1125" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-10" value="👥 Actor: Sales Staff (nhân viên bán hàng, sử dụng gợi ý)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1145" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-11" value="🤖 Actor: ML Models (Python service thực thi thuật toán)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1165" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-12" value="🛒 Actor: Customer (khách hàng, cung cấp data thông qua hành vi mua)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1185" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-13" value="🎯 Hệ thống DSS giúp Sales Manager tối ưu cross-sell và next-best-offer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1205" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
