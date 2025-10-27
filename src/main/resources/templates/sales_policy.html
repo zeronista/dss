@@ -3,59 +3,587 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Policy - DSS</title>
+    <title>Return-Risk Gatekeeping Policy - DSS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        .kpi-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .kpi-card h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .kpi-card .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .slider-container {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .slider-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+        .policy-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .action-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .action-approve {
+            background: #d4edda;
+            color: #155724;
+        }
+        .action-prepay {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .action-block {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
     <div th:replace="fragments/sidebar :: sidebar"></div>
     
     <div class="main-content">
-        <h1>Sales Policy Simulation</h1>
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1><i class="bi bi-shield-check"></i> Return-Risk Gatekeeping Policy</h1>
+                <p class="text-muted">Prescriptive Decision Support - Optimize threshold (τ*) for maximum profit</p>
+            </div>
+            <button class="btn btn-success btn-lg" id="deployPolicyBtn" disabled>
+                <i class="bi bi-rocket-takeoff"></i> Deploy This Policy
+            </button>
+        </div>
         
-        <div class="card p-3 mt-4">
-            <h5>Return Risk Prediction</h5>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="orderId" class="form-label">Order ID</label>
-                    <input type="text" class="form-control" id="orderId" placeholder="Enter Order ID">
+        <!-- KPI Cards Row -->
+        <div class="row" id="kpiCards">
+            <div class="col-md-4">
+                <div class="kpi-card">
+                    <div class="label">
+                        <i class="bi bi-bullseye"></i> Optimal Threshold (τ*)
+                    </div>
+                    <h2 id="optimalThreshold">-</h2>
+                    <div class="label">Risk score threshold</div>
                 </div>
-                <div class="col-md-6">
-                    <label>&nbsp;</label><br>
-                    <button class="btn btn-primary" onclick="simulatePolicy()">Simulate Policy</button>
+            </div>
+            <div class="col-md-4">
+                <div class="kpi-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="label">
+                        <i class="bi bi-cash-coin"></i> Expected Profit Protection
+                    </div>
+                    <h2 id="profitProtected">$0</h2>
+                    <div class="label">per month vs. baseline</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="kpi-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="label">
+                        <i class="bi bi-percent"></i> Orders Impacted
+                    </div>
+                    <h2 id="ordersImpacted">0%</h2>
+                    <div class="label">requiring policy action</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- What-If Simulation Controls -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-sliders"></i> What-If Simulation Controls</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Threshold Slider -->
+                    <div class="col-md-6">
+                        <div class="slider-container">
+                            <label class="form-label">
+                                <i class="bi bi-speedometer2"></i> Decision Threshold (τ)
+                            </label>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>0</span>
+                                <span class="slider-value" id="thresholdValue" th:text="${defaultThreshold}">75</span>
+                                <span>100</span>
+                            </div>
+                            <input type="range" class="form-range" id="thresholdSlider" 
+                                   min="0" max="100" step="1" th:value="${defaultThreshold}"
+                                   oninput="updateThreshold(this.value)">
+                            <small class="text-muted">Adjust to see real-time impact on profit and orders</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Business Parameters -->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Return Processing Cost ($)</label>
+                                <input type="number" class="form-control" id="returnCost" 
+                                       th:value="${defaultReturnCost}" step="0.5" onchange="runSimulation()">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Shipping Cost ($)</label>
+                                <input type="number" class="form-control" id="shippingCost" 
+                                       th:value="${defaultShippingCost}" step="0.5" onchange="runSimulation()">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">COGS Ratio (%)</label>
+                                <input type="number" class="form-control" id="cogsRatio" 
+                                       th:value="${defaultCogsRatio}" step="1" onchange="runSimulation()">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Conversion Impact (%)</label>
+                                <input type="number" class="form-control" id="conversionImpact" 
+                                       th:value="${defaultConversionImpact}" step="1" onchange="runSimulation()">
+                                <small class="text-muted">Loss when blocking COD</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <button class="btn btn-primary" onclick="runSimulation()">
+                        <i class="bi bi-play-circle"></i> Run Simulation
+                    </button>
+                    <button class="btn btn-success" onclick="findOptimalThreshold()">
+                        <i class="bi bi-bullseye"></i> Find Optimal τ*
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="resetDefaults()">
+                        <i class="bi bi-arrow-clockwise"></i> Reset to Defaults
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Charts Row -->
+        <div class="row mb-4">
+            <!-- Profit Curve Chart -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-graph-up"></i> Expected Profit vs Threshold (τ)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="profitCurveChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div id="resultSection" class="mt-4" style="display:none;">
-                <h5>Simulation Result</h5>
-                <div class="alert" id="resultAlert"></div>
+            <!-- Impact Metrics Chart -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Impact Metrics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="impactChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <!-- Policy Decision Table -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-table"></i> Policy Decision Matrix (Current Threshold: <span id="currentThresholdDisplay">75</span>)</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive policy-table">
+                    <table class="table table-hover" id="policyTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Risk Score Range</th>
+                                <th>Recommended Action</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="policyTableBody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommendation Box -->
+        <div class="alert alert-success" id="recommendationBox" style="display:none;">
+            <h5><i class="bi bi-lightbulb"></i> Recommendation</h5>
+            <p id="recommendationText"></p>
+            <p class="mb-0"><small id="sensitivityNote" class="text-muted"></small></p>
+        </div>
+        
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center" style="display:none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Running simulation...</p>
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="/static/js/app.js"></script>
-    <script>
-        async function simulatePolicy() {
-            const orderId = document.getElementById('orderId').value;
-            if (!orderId) {
-                alert('Please enter an Order ID');
-                return;
-            }
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        
+        // Global variables
+        let profitCurveChart = null;
+        let impactChart = null;
+        let optimalData = null;
+        let currentSimulation = null;
+        
+        // Default values from Thymeleaf
+        const defaults = {
+            threshold: /*[[${defaultThreshold}]]*/ 75,
+            returnCost: /*[[${defaultReturnCost}]]*/ 15,
+            conversionImpact: /*[[${defaultConversionImpact}]]*/ 20,
+            cogsRatio: /*[[${defaultCogsRatio}]]*/ 60,
+            shippingCost: /*[[${defaultShippingCost}]]*/ 5
+        };
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            findOptimalThreshold(); // Run optimization on load
+        });
+        
+        // Update threshold value display
+        function updateThreshold(value) {
+            document.getElementById('thresholdValue').textContent = value;
+            document.getElementById('currentThresholdDisplay').textContent = value;
+            updatePolicyTable(parseFloat(value));
+            runSimulation();
+        }
+        
+        // Run simulation with current parameters
+        async function runSimulation() {
+            const params = getSimulationParams();
+            showLoading(true);
             
-            const result = await postData('/policy/simulate', { orderId });
-            
-            if (result) {
-                document.getElementById('resultSection').style.display = 'block';
-                const alertDiv = document.getElementById('resultAlert');
-                alertDiv.className = `alert alert-${result.shouldApprove ? 'success' : 'danger'}`;
-                alertDiv.innerHTML = `
-                    <strong>Risk Score:</strong> ${result.returnRiskScore}<br>
-                    <strong>Risk Level:</strong> ${result.riskLevel}<br>
-                    <strong>Recommendation:</strong> ${result.recommendation}
-                `;
+            try {
+                const response = await fetch('/api/policy/simulate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(params)
+                });
+                
+                if (!response.ok) throw new Error('Simulation failed');
+                
+                const result = await response.json();
+                currentSimulation = result;
+                updateSimulationDisplay(result);
+                
+            } catch (error) {
+                console.error('Simulation error:', error);
+                alert('Error running simulation. Please try again.');
+            } finally {
+                showLoading(false);
             }
         }
+        
+        // Find optimal threshold τ*
+        async function findOptimalThreshold() {
+            const params = getSimulationParams();
+            delete params.threshold; // Let backend find optimal
+            showLoading(true);
+            
+            try {
+                const response = await fetch('/api/policy/optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(params)
+                });
+                
+                if (!response.ok) throw new Error('Optimization failed');
+                
+                const result = await response.json();
+                optimalData = result;
+                updateOptimalDisplay(result);
+                updateProfitCurveChart(result.profitCurve);
+                
+                // Set slider to optimal value
+                document.getElementById('thresholdSlider').value = result.optimalThreshold;
+                updateThreshold(result.optimalThreshold);
+                
+            } catch (error) {
+                console.error('Optimization error:', error);
+                alert('Error finding optimal threshold. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        // Get simulation parameters from inputs
+        function getSimulationParams() {
+            return {
+                threshold: parseFloat(document.getElementById('thresholdSlider').value),
+                returnProcessingCost: parseFloat(document.getElementById('returnCost').value),
+                conversionRateImpact: parseFloat(document.getElementById('conversionImpact').value),
+                cogsRatio: parseFloat(document.getElementById('cogsRatio').value),
+                shippingCostDefault: parseFloat(document.getElementById('shippingCost').value),
+                sampleSize: 1000
+            };
+        }
+        
+        // Update simulation display
+        function updateSimulationDisplay(result) {
+            // Update impact chart
+            updateImpactChart(result);
+            
+            // Update KPI if not optimal data
+            if (!optimalData) {
+                document.getElementById('ordersImpacted').textContent = 
+                    result.ordersImpactedPct.toFixed(1) + '%';
+            }
+        }
+        
+        // Update optimal threshold display
+        function updateOptimalDisplay(result) {
+            document.getElementById('optimalThreshold').textContent = result.optimalThreshold.toFixed(0);
+            document.getElementById('profitProtected').textContent = 
+                '$' + result.profitProtectedPerMonth.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            // Calculate orders impacted at optimal threshold
+            const optimalPoint = result.profitCurve.find(p => p.threshold === result.optimalThreshold);
+            if (optimalPoint) {
+                const pct = (optimalPoint.ordersImpacted / 1000 * 100).toFixed(1);
+                document.getElementById('ordersImpacted').textContent = pct + '%';
+            }
+            
+            // Update recommendation box
+            document.getElementById('recommendationBox').style.display = 'block';
+            document.getElementById('recommendationText').textContent = result.recommendation;
+            document.getElementById('sensitivityNote').textContent = result.sensitivityNote;
+            
+            // Update policy table with rules
+            updatePolicyTableFromRules(result.policyRules);
+            
+            // Enable deploy button
+            document.getElementById('deployPolicyBtn').disabled = false;
+        }
+        
+        // Update policy table based on threshold
+        function updatePolicyTable(threshold) {
+            const tbody = document.getElementById('policyTableBody');
+            tbody.innerHTML = '';
+            
+            const rules = [
+                { min: 0, max: threshold, action: 'APPROVE', desc: 'Low risk - Approve with standard policy', class: 'action-approve' }
+            ];
+            
+            if (threshold < 100) {
+                const mid = (threshold + 100) / 2;
+                rules.push({ 
+                    min: threshold, max: mid, action: 'REQUIRE_PREPAY', 
+                    desc: 'Medium-High risk - Require prepayment', class: 'action-prepay' 
+                });
+                rules.push({ 
+                    min: mid, max: 100, action: 'BLOCK_COD', 
+                    desc: 'Very High risk - Block COD, cash only', class: 'action-block' 
+                });
+            }
+            
+            rules.forEach(rule => {
+                const row = `
+                    <tr>
+                        <td><strong>${rule.min.toFixed(0)} - ${rule.max.toFixed(0)}</strong></td>
+                        <td><span class="action-badge ${rule.class}">${rule.action}</span></td>
+                        <td>${rule.desc}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+        
+        // Update policy table from API rules
+        function updatePolicyTableFromRules(rules) {
+            if (!rules || rules.length === 0) return;
+            
+            const tbody = document.getElementById('policyTableBody');
+            tbody.innerHTML = '';
+            
+            rules.forEach(rule => {
+                let badgeClass = 'action-approve';
+                if (rule.action === 'REQUIRE_PREPAY') badgeClass = 'action-prepay';
+                if (rule.action === 'BLOCK_COD') badgeClass = 'action-block';
+                
+                const row = `
+                    <tr>
+                        <td><strong>${rule.scoreRange}</strong></td>
+                        <td><span class="action-badge ${badgeClass}">${rule.action}</span></td>
+                        <td>${rule.description}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+        
+        // Initialize Chart.js charts
+        function initializeCharts() {
+            // Profit Curve Chart
+            const profitCtx = document.getElementById('profitCurveChart').getContext('2d');
+            profitCurveChart = new Chart(profitCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Expected Profit ($)',
+                        data: [],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Profit: $' + context.parsed.y.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Threshold (τ)' } },
+                        y: { title: { display: true, text: 'Total Expected Profit ($)' } }
+                    }
+                }
+            });
+            
+            // Impact Chart
+            const impactCtx = document.getElementById('impactChart').getContext('2d');
+            impactChart = new Chart(impactCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Orders Impacted', 'Revenue at Risk'],
+                    datasets: [{
+                        label: 'Metrics',
+                        data: [0, 0],
+                        backgroundColor: ['#f5576c', '#00f2fe'],
+                        borderRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+        
+        // Update profit curve chart
+        function updateProfitCurveChart(curveData) {
+            if (!profitCurveChart || !curveData) return;
+            
+            const labels = curveData.map(d => d.threshold);
+            const profits = curveData.map(d => d.profit);
+            
+            profitCurveChart.data.labels = labels;
+            profitCurveChart.data.datasets[0].data = profits;
+            
+            // Highlight optimal point
+            const optimalIdx = curveData.findIndex(d => d.threshold === optimalData.optimalThreshold);
+            if (optimalIdx >= 0) {
+                profitCurveChart.data.datasets[0].pointRadius = labels.map((_, i) => i === optimalIdx ? 8 : 3);
+                profitCurveChart.data.datasets[0].pointBackgroundColor = labels.map((_, i) => i === optimalIdx ? '#ff0000' : '#667eea');
+            }
+            
+            profitCurveChart.update();
+        }
+        
+        // Update impact chart
+        function updateImpactChart(simResult) {
+            if (!impactChart || !simResult) return;
+            
+            impactChart.data.datasets[0].data = [
+                simResult.ordersImpacted,
+                simResult.revenueAtRisk
+            ];
+            impactChart.update();
+        }
+        
+        // Reset to defaults
+        function resetDefaults() {
+            document.getElementById('thresholdSlider').value = defaults.threshold;
+            document.getElementById('returnCost').value = defaults.returnCost;
+            document.getElementById('conversionImpact').value = defaults.conversionImpact;
+            document.getElementById('cogsRatio').value = defaults.cogsRatio;
+            document.getElementById('shippingCost').value = defaults.shippingCost;
+            updateThreshold(defaults.threshold);
+            runSimulation();
+        }
+        
+        // Show/hide loading spinner
+        function showLoading(show) {
+            document.getElementById('loadingSpinner').style.display = show ? 'block' : 'none';
+        }
+        
+        // Deploy policy
+        document.getElementById('deployPolicyBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to deploy this policy? It will affect all future orders.')) {
+                alert('Policy deployment functionality will be implemented with database persistence.');
+                // TODO: Implement actual policy deployment
+            }
+        });
+        
+        /*]]>*/
     </script>
 </body>
 </html>
-

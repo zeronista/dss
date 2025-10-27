@@ -40,6 +40,21 @@ class RulesRequest(BaseModel):
 
 class ReturnRiskRequest(BaseModel):
     order_data: Dict[str, Any]
+    threshold: float = None
+    params: Dict[str, float] = None
+
+
+class PolicySimulationRequest(BaseModel):
+    orders_data: List[Dict[str, Any]]
+    threshold: float
+    params: Dict[str, float] = None
+
+
+class OptimalThresholdRequest(BaseModel):
+    orders_data: List[Dict[str, Any]]
+    params: Dict[str, float] = None
+    threshold_range: List[float] = [0, 100]
+    step: float = 1.0
 
 
 class AnomalyRequest(BaseModel):
@@ -98,13 +113,46 @@ def list_rules():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# Return Risk Prediction
+# Return Risk Prediction & Policy Optimization
 @app.post("/policy/predict-risk")
 def predict_return_risk(request: ReturnRiskRequest):
-    """Predict return risk for an order"""
+    """Predict return risk for a single order"""
     try:
-        prediction = risk_pipeline.predict(request.order_data)
+        prediction = risk_pipeline.predict_single_order(
+            request.order_data,
+            threshold=request.threshold,
+            params=request.params
+        )
         return prediction
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/policy/simulate")
+def simulate_policy(request: PolicySimulationRequest):
+    """Simulate policy impact with given threshold"""
+    try:
+        simulation = risk_pipeline.simulate_policy(
+            request.orders_data,
+            request.threshold,
+            params=request.params
+        )
+        return simulation
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/policy/optimize-threshold")
+def optimize_threshold(request: OptimalThresholdRequest):
+    """Find optimal threshold τ* that maximizes expected profit"""
+    try:
+        result = risk_pipeline.find_optimal_threshold(
+            request.orders_data,
+            params=request.params,
+            threshold_range=tuple(request.threshold_range),
+            step=request.step
+        )
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -1,0 +1,479 @@
+<mxfile host="app.diagrams.net" modified="2025-10-27T00:00:00.000Z" agent="5.0" version="22.1.11" etag="usecase" type="device">
+  <diagram name="Inventory Manager Use Case Diagram" id="usecase-diagram">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Use Case Diagram - Inventory Manager" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="subtitle" value="DSS Application - Return-Risk Gatekeeping Policy &amp; Inventory Management" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="65" width="600" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- System Boundary -->
+        <mxCell id="system-boundary" value="DSS System - Inventory Module" style="swimlane;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;strokeWidth=3;fontStyle=1;fontSize=16;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="800" height="900" as="geometry" />
+        </mxCell>
+        
+        <!-- Main Use Cases -->
+        
+        <!-- 1. Evaluate Return Risk -->
+        <mxCell id="uc-evaluate-risk" value="Đánh giá rủi ro trả hàng&#xa;(Return-Risk Assessment)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="80" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- 2. Manage Return Policy -->
+        <mxCell id="uc-manage-policy" value="Quản lý chính sách trả hàng&#xa;(Return Policy Management)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="240" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- 3. Monitor Inventory -->
+        <mxCell id="uc-monitor-inventory" value="Giám sát tồn kho&#xa;(Inventory Monitoring)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="system-boundary">
+          <mxGeometry x="280" y="400" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Risk Assessment -->
+        
+        <mxCell id="uc-analyze-customer" value="Phân tích lịch sử&#xa;khách hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="40" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-analyze-product" value="Phân tích đặc điểm&#xa;sản phẩm" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="220" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-ml-prediction" value="Dự đoán rủi ro&#xa;bằng ML Model" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="400" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-calculate-score" value="Tính điểm rủi ro&#xa;(Risk Score)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="580" y="560" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-generate-recommendation" value="Tạo khuyến nghị&#xa;quyết định" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="130" y="660" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-visualize-risk" value="Trực quan hóa&#xa;mức độ rủi ro" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="320" y="660" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-export-report" value="Xuất báo cáo&#xa;đánh giá rủi ro" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#FF5722;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="510" y="660" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Policy Management -->
+        
+        <mxCell id="uc-define-rules" value="Thiết lập quy tắc&#xa;chính sách" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="40" y="770" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-set-thresholds" value="Cài đặt ngưỡng&#xa;phê duyệt" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="210" y="770" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-approve-reject" value="Phê duyệt / Từ chối&#xa;đơn trả hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="380" y="770" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-track-policy" value="Theo dõi hiệu quả&#xa;chính sách" style="ellipse;whiteSpace=wrap;html=1;fillColor=#C5E1A5;strokeColor=#558B2F;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="550" y="770" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Sub Use Cases for Inventory Monitoring -->
+        
+        <mxCell id="uc-detect-anomaly" value="Phát hiện bất thường&#xa;tồn kho" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="100" y="530" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-audit-inventory" value="Kiểm toán&#xa;kho hàng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="550" y="530" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc-forecast-demand" value="Dự báo nhu cầu&#xa;tồn kho" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B3E5FC;strokeColor=#0277BD;fontSize=11;" vertex="1" parent="system-boundary">
+          <mxGeometry x="325" y="530" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: Inventory Manager -->
+        <mxCell id="actor-inventory" value="Inventory Manager" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#BBDEFB;strokeColor=#1976D2;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="380" width="80" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: System (ML Models) -->
+        <mxCell id="actor-system" value="&amp;lt;&amp;lt;system&amp;gt;&amp;gt;&#xa;ML Models&#xa;(Python Service)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFCDD2;strokeColor=#C62828;strokeWidth=2;fontSize=12;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="380" width="80" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Actor: Customer (External) -->
+        <mxCell id="actor-customer" value="Customer&#xa;(Requester)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#E1BEE7;strokeColor=#8E24AA;strokeWidth=2;fontSize=12;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="680" width="70" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Associations from Inventory Manager to Main Use Cases -->
+        
+        <mxCell id="assoc-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-inventory" target="uc-evaluate-risk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-inventory" target="uc-manage-policy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assoc-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="actor-inventory" target="uc-monitor-inventory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Include relationships for Risk Assessment -->
+        
+        <mxCell id="include-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF5722;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-evaluate-risk" target="uc-analyze-customer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="650" />
+              <mxPoint x="420" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-1-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF5722;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-1">
+          <mxGeometry x="0.3" y="2" relative="1" as="geometry">
+            <mxPoint x="15" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF5722;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-evaluate-risk" target="uc-analyze-product">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="640" />
+              <mxPoint x="600" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-2-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF5722;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF5722;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-evaluate-risk" target="uc-ml-prediction">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="630" />
+              <mxPoint x="780" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-3-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF5722;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#FF5722;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-evaluate-risk" target="uc-calculate-score">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="280" />
+              <mxPoint x="700" y="640" />
+              <mxPoint x="960" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-4-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#FF5722;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-4">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-15" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Extend relationships for Risk Assessment -->
+        
+        <mxCell id="extend-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#F9A825;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-generate-recommendation" target="uc-evaluate-risk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="770" />
+              <mxPoint x="510" y="360" />
+              <mxPoint x="700" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-1-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F9A825;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#F9A825;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-visualize-risk" target="uc-evaluate-risk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="770" />
+              <mxPoint x="700" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-2-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F9A825;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="extend-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#F9A825;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-export-report" target="uc-evaluate-risk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="890" y="770" />
+              <mxPoint x="890" y="360" />
+              <mxPoint x="700" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-3-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F9A825;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include relationships for Policy Management -->
+        
+        <mxCell id="include-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-manage-policy" target="uc-define-rules">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="860" />
+              <mxPoint x="415" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-5-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-5">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-manage-policy" target="uc-set-thresholds">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="850" />
+              <mxPoint x="585" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-6-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-6">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#558B2F;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-manage-policy" target="uc-approve-reject">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="430" />
+              <mxPoint x="700" y="860" />
+              <mxPoint x="755" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-7-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#558B2F;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-7">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Extend relationship for Policy Management -->
+        
+        <mxCell id="extend-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#F9A825;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-track-policy" target="uc-manage-policy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="925" y="880" />
+              <mxPoint x="925" y="510" />
+              <mxPoint x="700" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="extend-4-label" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F9A825;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="extend-4">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include relationships for Inventory Monitoring -->
+        
+        <mxCell id="include-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-detect-anomaly" target="uc-monitor-inventory">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="475" y="670" />
+              <mxPoint x="475" y="580" />
+              <mxPoint x="700" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-8-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-8">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-forecast-demand" target="uc-monitor-inventory">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="670" />
+              <mxPoint x="700" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-9-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-9">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="include-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=1.5;strokeColor=#0277BD;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-audit-inventory" target="uc-monitor-inventory">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="925" y="670" />
+              <mxPoint x="925" y="580" />
+              <mxPoint x="700" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="include-10-label" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0277BD;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="include-10">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dependency: Risk Assessment uses Policy Rules -->
+        
+        <mxCell id="dep-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;strokeColor=#9C27B0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc-manage-policy" target="uc-evaluate-risk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="410" />
+              <mxPoint x="1120" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep-1-label" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9C27B0;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="dep-1">
+          <mxGeometry x="0.3" y="2" relative="1" as="geometry">
+            <mxPoint x="-5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Associations from ML System to algorithmic use cases -->
+        
+        <mxCell id="assoc-system-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#C62828;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-ml-prediction">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc-system-1-label" value="executes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#C62828;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-system-1">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc-system-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#C62828;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-detect-anomaly">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="610" />
+              <mxPoint x="1150" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-system-2-label" value="executes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#C62828;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-system-2">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc-system-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#C62828;dashed=1;" edge="1" parent="1" source="actor-system" target="uc-forecast-demand">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="610" />
+              <mxPoint x="1150" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-system-3-label" value="executes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#C62828;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-system-3">
+          <mxGeometry x="0.2" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Association from Customer to Return Request -->
+        
+        <mxCell id="assoc-customer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#8E24AA;" edge="1" parent="1" source="actor-customer" target="uc-approve-reject">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="722" />
+              <mxPoint x="250" y="920" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc-customer-label" value="requests return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8E24AA;fontStyle=2;backgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="assoc-customer">
+          <mxGeometry x="0.3" y="2" relative="1" as="geometry">
+            <mxPoint x="10" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#999999;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1060" width="1320" height="140" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-title" value="📖 Chú giải (Legend):" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1070" width="150" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-1" value="━━━ Solid Line: Association (Actor thực hiện Use Case)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1105" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-2" value="- - - &amp;lt;&amp;lt;include&amp;gt;&amp;gt;: Use Case chính bắt buộc gọi Use Case phụ" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1125" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-3" value="- - - &amp;lt;&amp;lt;extend&amp;gt;&amp;gt;: Use Case tùy chọn, mở rộng chức năng chính" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1145" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-4" value="- - - &amp;lt;&amp;lt;uses&amp;gt;&amp;gt;: Use Case sử dụng kết quả của Use Case khác" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1165" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-5" value="🟡 Yellow: Use Case chính (Main Use Cases)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1105" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-6" value="🟠 Orange: Sub Use Cases - Return Risk Assessment" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1125" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-7" value="🟢 Green: Sub Use Cases - Policy Management" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1145" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-8" value="🔵 Blue: Sub Use Cases - Inventory Monitoring" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1165" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-9" value="👤 Actor: Inventory Manager (người quản lý kho)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1105" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-10" value="🤖 Actor: ML Models (Python service thực thi ML algorithms)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1125" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-11" value="🧑 Actor: Customer (khách hàng yêu cầu trả hàng)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1145" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-12" value="🎯 Hệ thống cung cấp quyết định prescriptive dựa trên ML" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="920" y="1165" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
