@@ -44,10 +44,32 @@ server:
   servlet:
     context-path: /
 
+# Async Configuration
+async:
+  core-pool-size: 5
+  max-pool-size: 20
+  queue-capacity: 100
+  thread-name-prefix: async-prediction-
+
 # Model Service Configuration
 model-service:
-  base-url: http://localhost:8000
-  timeout: 30000
+  base-url: ${MODEL_SERVICE_URL:http://localhost:8000}
+  timeout: ${MODEL_SERVICE_TIMEOUT:30000}
+  prediction-port: 8000
+  analytics-port: 8001
+  endpoints:
+    sales-forecast: /api/forecast/sales
+    churn-prediction: /api/predict/churn
+    return-risk: /api/risk/return
+    segmentation-analyze: /api/segmentation/analyze
+    rfm-analysis: /api/rfm/analyze
+    recommendations: /api/recommendations/generate
+    market-basket: /api/market-basket/analyze
+    anomaly-detect: /api/anomaly/detect
+    invoice-audit: /api/audit/invoice
+    policy-simulate: /api/policy/simulate
+    optimal-threshold: /api/policy/optimal-threshold
+    batch-evaluate: /api/policy/batch-evaluate
 
 # Logging
 logging:
