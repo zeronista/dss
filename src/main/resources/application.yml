@@ -48,6 +48,14 @@ server:
 async:
   core-pool-size: 5
   max-pool-size: 20
+
+# Python ML Service Configuration
+python:
+  ml:
+    service:
+      url: ${PYTHON_ML_URL:http://localhost:8000}
+      timeout: 30000  # 30 seconds
+      enabled: true
   queue-capacity: 100
   thread-name-prefix: async-prediction-
 

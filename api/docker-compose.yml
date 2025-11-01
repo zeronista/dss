@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: retail-dss-api
+    ports:
+      - "8000:8000"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - dss-network
+
+  # Optional: Redis for caching
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: retail-dss-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - dss-network
+
+  # Optional: MongoDB for data storage
+  # mongodb:
+  #   image: mongo:6
+  #   container_name: retail-dss-mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=admin
+  #     - MONGO_INITDB_ROOT_PASSWORD=password
+  #   volumes:
+  #     - mongo-data:/data/db
+  #   restart: unless-stopped
+  #   networks:
+  #     - dss-network
+
+  # Optional: MySQL for data storage
+  # mysql:
+  #   image: mysql:8
+  #   container_name: retail-dss-mysql
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=rootpassword
+  #     - MYSQL_DATABASE=retail_dss
+  #     - MYSQL_USER=dss_user
+  #     - MYSQL_PASSWORD=dss_password
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
+  #   restart: unless-stopped
+  #   networks:
+  #     - dss-network
+
+networks:
+  dss-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  mongo-data:
+  mysql-data:
